@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Polyline, LayerGroup } from "react-leaflet";
 import { useDispatch, useSelector } from "react-redux";
-
+import Modal from "../../../../components/Modal";
 import {
     fetchTTCLineThree,
     getAllTTCLineThree,

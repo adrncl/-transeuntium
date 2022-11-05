@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { LayerGroup } from "react-leaflet";
 
@@ -12,9 +12,10 @@ import LoadStouffvilleLine from "./stouffvilleLine/StouffvilleLine";
 import LoadUnionPearsonLine from "./unionPearsonLine/UnionPearsonLine";
 
 const LoadGoLines = () => {
+    const [barrieLoaded, setBarrieLoaded] = useState(false);
     return (
         <LayerGroup>
-            <LoadBarrieLine />
+            <LoadBarrieLine loaded={barrieLoaded} />
             <LoadKitchenerLine />
             <LoadLakeshoreEastLine />
             <LoadLakeshoreWestLine />

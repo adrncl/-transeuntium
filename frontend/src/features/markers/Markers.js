@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Marker, FeatureGroup, LayerGroup } from "react-leaflet";
 import LoadPopups from "../../components/Popups";
 import { useDispatch, useSelector } from "react-redux";
+import Modal from "../../components/Modal";
 import {
     fetchGoStations,
     getAllGoStations,
