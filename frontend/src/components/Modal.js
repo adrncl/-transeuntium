@@ -89,7 +89,7 @@ const Modal = () => {
                 }, 1000) &&
                 setTimeout(() => {
                     setDisplay("none");
-                }, 3000) && (
+                }, 1400) && (
                     <div className="modal" style={{ opacity, display }}>
                         <div className="modal-loading-container">
                             <div className="modal-loading-image "></div>

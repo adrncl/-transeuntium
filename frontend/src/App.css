@@ -371,7 +371,7 @@ h3 {
 .modal-loading-image {
     width: 100px;
     height: 100px;
-    background-image: url("../Transeuntium\ Favicon-04.png");
+    background-image: url("../public//Transeuntium\ Favicon-04.png");
     background-size: contain;
     -webkit-animation: spinX 3s infinite;
     animation: spinX 3s infinite;
