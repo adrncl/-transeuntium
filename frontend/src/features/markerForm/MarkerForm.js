@@ -1,19 +1,25 @@
 import React, { useState, useEffect } from "react";
-import '../../App.css';
-import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
-import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
-import Button from '@mui/material/Button';
-import SendIcon from '@mui/icons-material/Send';
-import TextField from '@mui/material/TextField';
-import Container from '@mui/material/Container';
-import CircularProgress from '@mui/material/CircularProgress';
-import { HTTP_STATUS } from "../../app/constants"
+import "../../App.css";
+import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
+import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
+import Button from "@mui/material/Button";
+import SendIcon from "@mui/icons-material/Send";
+import TextField from "@mui/material/TextField";
+import Container from "@mui/material/Container";
+import CircularProgress from "@mui/material/CircularProgress";
+import { HTTP_STATUS } from "../../app/constants";
 
 import { SanitarySlider, SafetySlider } from "../../components/Slider";
-import IconLabelButtons from "../../components/Button"
-import OutlinedCard from "../../components/NoteCard"
-import { useDispatch, useSelector } from 'react-redux'
-import { fetchGoStations, getAllGoStations, getAllGoStationsStatus, updateMarker, selectNotes } from "../markers/markersSlice"
+import IconLabelButtons from "../../components/Button";
+import OutlinedCard from "../../components/NoteCard";
+import { useDispatch, useSelector } from "react-redux";
+import {
+    fetchGoStations,
+    getAllGoStations,
+    getAllGoStationsStatus,
+    updateMarker,
+    selectNotes,
+} from "../markers/markersSlice";
 import {
     updateNote,
     updateDislikeCount,
@@ -28,99 +34,124 @@ import {
     getSpecificGoStationStatus,
     getSpecificGoStationNotes,
     updateSpecificGoStation,
-    updateSpecificGoStationStatus
-} from "../markerForm/markerFormSlice"
+    updateSpecificGoStationStatus,
+} from "../markerForm/markerFormSlice";
 
-import Modal from "../../components/Modal"
-
-
+import Modal from "../../components/Modal";
 
 const Form = ({ station }) => {
+    const [currentStation, setCurrentStation] = useState(station);
+    const [currentId, setCurrentId] = useState(station._id);
+    const [postingInProg, setPostingInProg] = useState(true);
 
-    const [currentStation, setCurrentStation] = useState(station)
-    const [currentId, setCurrentId] = useState(station._id)
-    const [postingInProg, setPostingInProg] = useState(true)
-
-    const [noteText, setNoteText] = useState("")
-    const [sanitaryRating, setSanitaryRating] = useState()
-    const [safetyRating, setSafetyRating] = useState()
-    const [servicesIncluded, setServicesIncluded] = useState()
-    const [stationLiked, setStationLiked] = useState(false)
-    const [stationDisliked, setStationDisliked] = useState(false)
+    const [noteText, setNoteText] = useState("");
+    const [sanitaryRating, setSanitaryRating] = useState();
+    const [safetyRating, setSafetyRating] = useState();
+    const [servicesIncluded, setServicesIncluded] = useState();
+    const [stationLiked, setStationLiked] = useState(false);
+    const [stationDisliked, setStationDisliked] = useState(false);
 
     const dispatch = useDispatch();
-    const getSpecificStation = useSelector(getSpecificGoStation)
-    const getSpecificStationStatus = useSelector(getSpecificGoStationStatus)
+    const getSpecificStation = useSelector(getSpecificGoStation);
+    const getSpecificStationStatus = useSelector(getSpecificGoStationStatus);
 
-    const updateSpecificStation = useSelector(updateSpecificGoStation)
-    const updateSpecificStationStatus = useSelector(updateSpecificGoStationStatus)
+    const updateSpecificStation = useSelector(updateSpecificGoStation);
+    const updateSpecificStationStatus = useSelector(
+        updateSpecificGoStationStatus
+    );
 
-    console.log("Updating Status...", updateSpecificStationStatus)
+    console.log("Updating Status...", updateSpecificStationStatus);
 
     // run only when dispatch changes - dependency
     useEffect(() => {
-        dispatch(fetchSpecificGoStation({ id: currentId }))
-    }, [dispatch])
+        dispatch(fetchSpecificGoStation({ id: currentId }));
+    }, [dispatch]);
 
     useEffect(() => {
-        dispatch(updateSanitaryRating(sanitaryRating))
-    }, [sanitaryRating])
+        dispatch(updateSanitaryRating(sanitaryRating));
+    }, [sanitaryRating]);
 
     useEffect(() => {
-        dispatch(updateSafetyRating(safetyRating))
-    }, [safetyRating])
+        dispatch(updateSafetyRating(safetyRating));
+    }, [safetyRating]);
 
     useEffect(() => {
-        dispatch(updateServices(servicesIncluded))
-    }, [servicesIncluded])
+        dispatch(updateServices(servicesIncluded));
+    }, [servicesIncluded]);
 
     useEffect(() => {
-        dispatch(updateLikeCount(stationLiked))
-    }, [stationLiked])
+        dispatch(updateLikeCount(stationLiked));
+    }, [stationLiked]);
 
     useEffect(() => {
-        dispatch(updateDislikeCount(stationDisliked))
-    }, [stationDisliked])
+        dispatch(updateDislikeCount(stationDisliked));
+    }, [stationDisliked]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (noteText !== "") {
-            dispatch(
-                updateGoStationInfo({
-                    id: currentId,
-                    note: noteText,
-                    sanitaryRating: sanitaryRating,
-                    safetyRating: safetyRating,
-                    servicesIncluded: servicesIncluded,
-                    stationLiked: stationLiked,
-                    stationDisliked: stationDisliked
-                }))
-                .then(() => dispatch(fetchSpecificGoStation({ id: currentId })))
-                .catch(() => console.log("error"))
-        }
-    }
+        dispatch(
+            updateGoStationInfo({
+                id: currentId,
+                note: noteText,
+                sanitaryRating: sanitaryRating,
+                safetyRating: safetyRating,
+                servicesIncluded: servicesIncluded,
+                stationLiked: stationLiked,
+                stationDisliked: stationDisliked,
+            })
+        )
+            .then(() => dispatch(fetchSpecificGoStation({ id: currentId })))
+            .catch(() => console.log("error"));
+    };
 
     const average = (array) => {
-        if (array.length > 1) return Math.round(array.reduce((a, b) => a + b) / array.length)
-        if (array.length === 1) return array[0]
-        return 3
-    }
+        if (array.length > 1)
+            return Math.round(array.reduce((a, b) => a + b) / array.length);
+        if (array.length === 1) return array[0];
+        return 3;
+    };
     return (
         <form onSubmit={(e) => handleSubmit(e)}>
             <div className="like-dislike-container">
-                <ThumbUpAltIcon fontSize="small" sx={{ color: stationLiked ? "rgb(25, 118, 210)" : "rgb(51, 51, 51)" }} onClick={() => setStationLiked(!stationLiked)} />
-                <ThumbDownAltIcon fontSize="small" sx={{ color: stationDisliked ? "rgb(25, 118, 210)" : "rgb(51, 51, 51)" }} onClick={() => setStationDisliked(!stationDisliked)} />
+                <ThumbUpAltIcon
+                    fontSize="small"
+                    sx={{
+                        color: stationLiked
+                            ? "rgb(25, 118, 210)"
+                            : "rgb(51, 51, 51)",
+                    }}
+                    onClick={() => setStationLiked(!stationLiked)}
+                />
+                <ThumbDownAltIcon
+                    fontSize="small"
+                    sx={{
+                        color: stationDisliked
+                            ? "rgb(25, 118, 210)"
+                            : "rgb(51, 51, 51)",
+                    }}
+                    onClick={() => setStationDisliked(!stationDisliked)}
+                />
             </div>
 
             <Modal />
 
-            <IconLabelButtons updateServicesIncluded={(services) => setServicesIncluded(services)} />
+            <IconLabelButtons
+                updateServicesIncluded={(services) =>
+                    setServicesIncluded(services)
+                }
+            />
 
             <h3 className="popup-sub-heading">Sanitary Level</h3>
-            <SanitarySlider rating={average(station.sanitaryRating)} updateSanitaryRating={(rating) => setSanitaryRating(rating)} />
+            <SanitarySlider
+                rating={average(station.sanitaryRating)}
+                updateSanitaryRating={(rating) => setSanitaryRating(rating)}
+            />
 
             <h3 className="popup-sub-heading">Safety Level</h3>
-            <SafetySlider rating={average(station.safetyRating)} updateSafetyRating={(rating) => setSafetyRating(rating)} />
+            <SafetySlider
+                rating={average(station.safetyRating)}
+                updateSafetyRating={(rating) => setSafetyRating(rating)}
+            />
 
             <TextField
                 sx={{ marginTop: 1 }}
@@ -133,66 +164,35 @@ const Form = ({ station }) => {
             />
 
             <div className="submit-button-container">
-                <Button variant="contained"
+                <Button
+                    variant="contained"
                     type="submit"
                     endIcon={<SendIcon />}
-                    onClick={() => alert("Your file is being uploaded!")}
-                >Submit</Button>
+                    onClick={(e) => handleSubmit(e)}
+                >
+                    Submit
+                </Button>
             </div>
 
-            {
-                getSpecificStationStatus !== HTTP_STATUS.FULFILLED ?
-                    station.notes.map((note, i) =>
-                        <OutlinedCard key={note.noteId} note={note} />
-                    ) :
-                    getSpecificStation.notes.map((note, i) =>
-                        <OutlinedCard key={note.noteId} note={note} />
-                    )
-            }
-
-
-
-            {/* {
-                goStations.map((note) => {
-                    return (
-                        <OutlinedCard key={note.noteId} note={note} />
-                    )
-                })
-            } */}
-
-            {/* {
-                specificGoStationsStatus !== HTTP_STATUS.FULFILLED ?
-                    null :
-                    specificGoStations.notes.map((note) => (
-                        <OutlinedCard key={note.noteId} note={note} />
-                    ))
-            } */}
-
-            {/* {
-                specificGoStationsStatus !== HTTP_STATUS.FULFILLED ?
-                    null :
-
-                    station.notes.map((note) => (
-                        <OutlinedCard key={note.noteId} note={note} />
-                    ))
-
-                specificGoStations.notes.map((note) => (
-                    <OutlinedCard key={note.noteId} note={note} />
-                ))
-            } */}
-
-            {/* {station.notes.length > 0 ? (
-                <div className='goals'>
-                    {station.notes.map((note) => (
-                        <OutlinedCard key={note.noteId} note={note} />
-                    ))}
-                </div>
-            ) : (
-                null
-            )} */}
-
-        </form >
+            {getSpecificStationStatus !== HTTP_STATUS.FULFILLED
+                ? station.notes.map((note, i) => (
+                      <OutlinedCard
+                          key={note._id}
+                          note={note}
+                          id={currentId}
+                          noteId={note._id}
+                      />
+                  ))
+                : getSpecificStation.notes.map((note, i) => (
+                      <OutlinedCard
+                          key={note._id}
+                          note={note}
+                          id={currentId}
+                          noteId={note._id}
+                      />
+                  ))}
+        </form>
     );
-}
+};
 
 export default Form;

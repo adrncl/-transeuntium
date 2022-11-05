@@ -1,27 +1,27 @@
-import React, { useState } from 'react';
-import Slider from '@mui/material/Slider';
-import '../App.css';
+import React, { useState } from "react";
+import Slider from "@mui/material/Slider";
+import "../App.css";
 
 export const SanitarySlider = ({ rating, updateSanitaryRating }) => {
     const [value, setValue] = useState(rating);
     const marks = [
         {
             value: 1,
-            label: 'Dirty',
+            label: "Dirty",
         },
         {
             value: 3,
-            label: '',
+            label: "",
         },
         {
             value: 5,
-            label: 'Clean',
+            label: "Clean",
         },
     ];
 
     const handleChange = (event) => {
-        setValue(event.target.value)
-        updateSanitaryRating(event.target.value)
+        setValue(event.target.value);
+        updateSanitaryRating(event.target.value);
     };
 
     function valuetext(value) {
@@ -46,24 +46,23 @@ export const SanitarySlider = ({ rating, updateSanitaryRating }) => {
             </div>
         </div>
     );
-}
+};
 
 export const SafetySlider = ({ rating, updateSafetyRating }) => {
     const [value, setValue] = useState(rating);
     const marks = [
         {
             value: 1,
-            label: 'Safe',
+            label: "Unsafe",
         },
         {
             value: 3,
-            label: '',
+            label: "",
         },
         {
             value: 5,
-            label: 'Unsafe',
+            label: "Safe",
         },
-
     ];
 
     function valuetext(value) {
@@ -71,16 +70,14 @@ export const SafetySlider = ({ rating, updateSafetyRating }) => {
     }
 
     const handleChange = (event) => {
-        setValue(event.target.value)
-        updateSafetyRating(event.target.value)
+        setValue(event.target.value);
+        updateSafetyRating(event.target.value);
     };
 
     return (
         <div className="slider-container">
             <div className="slider">
-
                 <Slider
-
                     className="popup-slider"
                     aria-label="Custom marks"
                     value={value}
@@ -95,5 +92,4 @@ export const SafetySlider = ({ rating, updateSafetyRating }) => {
             </div>
         </div>
     );
-}
-
+};

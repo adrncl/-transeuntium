@@ -1,37 +1,37 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { endpoint, HTTP_STATUS } from "../../app/constants"
+import { endpoint, HTTP_STATUS } from "../../app/constants";
 
 export const fetchGoStations = createAsyncThunk(
-    'markers/fetchGoStations',
+    "markers/fetchGoStations",
     async () => {
-        const { data, status } = await axios.get(`${endpoint}/gostations`)
+        const { data, status } = await axios.get(`${endpoint}/gostations`);
         if (status === 200) return data;
-        console.log("error")
+        console.log("error");
     }
-)
+);
 
 const goStationMarkersSlice = createSlice({
-    name: 'markers',
+    name: "markers",
     initialState: {
         list: [],
         status: null,
     },
     extraReducers: {
         [fetchGoStations.pending]: (state, action) => {
-            state.status = HTTP_STATUS.PENDING
+            state.status = HTTP_STATUS.PENDING;
         },
         [fetchGoStations.fulfilled]: (state, { payload }) => {
-            state.list = payload
-            state.status = HTTP_STATUS.FULFILLED
+            state.list = payload;
+            state.status = HTTP_STATUS.FULFILLED;
         },
         [fetchGoStations.rejected]: (state, action) => {
-            state.status = HTTP_STATUS.REJECTED
-        }
+            state.status = HTTP_STATUS.REJECTED;
+        },
     },
-})
+});
 
-export const getAllGoStations = (state) => state.markers.list
-export const getAllGoStationsStatus = (state) => state.markers.status
+export const getAllGoStations = (state) => state.markers.list;
+export const getAllGoStationsStatus = (state) => state.markers.status;
 
-export default goStationMarkersSlice.reducer
+export default goStationMarkersSlice.reducer;
