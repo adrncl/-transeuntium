@@ -1,5 +1,5 @@
-// export const endpoint = "http://localhost:5000";
-export const endpoint = "https://transeuntium.herokuapp.com";
+export const endpoint = "http://localhost:5000";
+// export const endpoint = "https://transeuntium.herokuapp.com";
 
 export const HTTP_STATUS = Object.freeze({
     PENDING: "PENDING",
@@ -33,3 +33,8 @@ export const goLineMiltonLineColour = "black";
 export const goLineRHLineColour = "black";
 export const goLineStouffvilleLineColour = "black";
 export const goLineUnionPearsonLineColour = "black";
+
+export const goStationsColours = "black";
+export const amtrakStationColours = "purple";
+export const viaRailStationColours = "rgb(156,0,0)";
+export const TTCColours = "green";

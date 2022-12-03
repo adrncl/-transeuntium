@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import "dotenv/config";
+import MongoClient from "mongodb";
 
 const { DATABASE_URL, DATABASE_USER, DATABASE_PASSWORD, DATABASE_NAME } =
     process.env;
@@ -19,9 +20,19 @@ mongoose.connect(
 //     let dbt = mongoose.connection.db;
 
 //     // Rename the `test` collection to `foobar`
-//     return dbt
-//         .collection("go-lakeshore-east-line")
-//         .rename("go-lakeshore-east-lines");
+//     return dbt.collection("go-station-points").rename("station-points");
+
+//     // const collection = dbt.collection("go-station-points");
+
+//     // const query = { directors: "Barbra Streisand" };
+
+//     // const distinctValues = collection.distinct("stationType");
+
+//     // distinctValues.then(() => {
+//     //     console.log(distinctValues);
+//     // });
+
+//     // console.log(distinctValues);
 // })
 // .then(() => {
 //     console.log("rename successful");

@@ -5,6 +5,7 @@ import { endpoint, HTTP_STATUS } from "../../app/constants";
 export const fetchGoStations = createAsyncThunk(
     "markers/fetchGoStations",
     async () => {
+        console.log("endpointendpointendpointendpoint", endpoint);
         const { data, status } = await axios.get(`${endpoint}/gostations`);
         if (status === 200) return data;
         console.log("error");

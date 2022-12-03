@@ -133,8 +133,6 @@ const Form = ({ station }) => {
                 />
             </div>
 
-            <Modal />
-
             <IconLabelButtons
                 updateServicesIncluded={(services) =>
                     setServicesIncluded(services)

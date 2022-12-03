@@ -27,8 +27,20 @@ const App = () => {
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 />
                 <LayersControl position="topright">
-                    <LayersControl.Overlay name="Markers">
-                        <LoadMarkers />
+                    <LayersControl.Overlay name="GO">
+                        <LoadMarkers type="GO" />
+                    </LayersControl.Overlay>
+
+                    <LayersControl.Overlay name="TTC">
+                        <LoadMarkers type="TTC" />
+                    </LayersControl.Overlay>
+
+                    <LayersControl.Overlay name="VIA">
+                        <LoadMarkers type="VIA" />
+                    </LayersControl.Overlay>
+
+                    <LayersControl.Overlay name="Amtrak">
+                        <LoadMarkers type="Amtrak" />
                     </LayersControl.Overlay>
 
                     <LayersControl.Overlay name="TTC Lines">

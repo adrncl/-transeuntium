@@ -17,7 +17,7 @@ const noteSchema = new mongoose.Schema({
     },
 });
 
-const goStationsSchema = new mongoose.Schema({
+const stationSchema = new mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
     stationName: String,
     serviceType: String,
@@ -42,6 +42,6 @@ const goStationsSchema = new mongoose.Schema({
     type: String,
     coordinates: Array,
 });
-const goStationsModel = mongoose.model("go-station-points", goStationsSchema);
+const stationModel = mongoose.model("station-points", stationSchema);
 
-export { goStationsModel };
+export { stationModel };

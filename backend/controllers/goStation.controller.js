@@ -1,10 +1,10 @@
 // // getting access to our model
 import mongoose from "mongoose";
-import { goStationsModel } from "../models/goStations.model.js";
+import { stationModel } from "../models/goStations.model.js";
 
 export const getGoStations = async (req, res) => {
     try {
-        const goStations = await goStationsModel.find();
+        const goStations = await stationModel.find();
         // status 200 means everythings okay
         res.status(200).json(goStations);
     } catch (error) {
@@ -16,7 +16,7 @@ export const getGoStations = async (req, res) => {
 export const getSpecificGoStation = async (req, res) => {
     try {
         const { id } = req.params;
-        const goStationNotes = await goStationsModel.findById(id);
+        const goStationNotes = await stationModel.findById(id);
         res.status(200).json(goStationNotes);
     } catch (error) {
         console.error(
@@ -39,7 +39,7 @@ export const updateGoStationInfo = async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(id))
         return res.status(404).send("No post with that id");
 
-    goStationsModel.findById(id, function (err, goStation) {
+    stationModel.findById(id, function (err, goStation) {
         if (goStation.length === 0) return res.json();
         const existingNotes = goStation.notes;
         const existingSanitaryRatings = goStation.sanitaryRating;
@@ -93,8 +93,8 @@ export const likePost = async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(id))
         return res.status(404).send("No post with that id");
 
-    const post = await goStationsModel.findById(id);
-    const updatedPost = await goStationsModel.findByIdAndUpdate(
+    const post = await stationModel.findById(id);
+    const updatedPost = await stationModel.findByIdAndUpdate(
         id,
         { likeCount: post.likeCount + 1 },
         { new: true }
@@ -114,7 +114,7 @@ export const likePost = async (req, res) => {
 //     if (!mongoose.Types.ObjectId.isValid(id))
 //         return res.status(404).send("No post with that id");
 
-//     // goStationsModel.findById(id, function (err, goStation) {
+//     // stationModel.findById(id, function (err, goStation) {
 //     //     if (goStation.length === 0) return res.json();
 
 //     //     const existingNotes = goStation.notes;
