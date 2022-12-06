@@ -1,9 +1,9 @@
 import express from "express";
 import {
-    getGoStations,
-    updateGoStationInfo,
-    getSpecificGoStation,
-} from "../controllers/goStation.controller.js";
+    getStations,
+    updateStationInfo,
+    getSpecificStation,
+} from "../controllers/stations.controller.js";
 import { getBikeRoutes } from "../controllers/bikeRoutes.controller.js";
 import {
     getTTCLineOne,
@@ -30,7 +30,7 @@ import {
 
 import { getViaRail } from "../controllers/viaRail.controller.js";
 
-const goStationsRouter = express.Router();
+const stationsRouter = express.Router();
 const bikeRoutesRouter = express.Router();
 const viaRailRouter = express.Router();
 
@@ -51,9 +51,9 @@ const goLinesUPRouter = express.Router();
 const waterlooIonRouter = express.Router();
 const waterlooIonStageTwoRouter = express.Router();
 
-goStationsRouter.get("/", getGoStations);
-goStationsRouter.get("/:id", getSpecificGoStation);
-goStationsRouter.put("/:id", updateGoStationInfo);
+stationsRouter.get("/", getStations);
+stationsRouter.get("/:id", getSpecificStation);
+stationsRouter.put("/:id", updateStationInfo);
 
 bikeRoutesRouter.get("/", getBikeRoutes);
 
@@ -77,7 +77,7 @@ waterlooIonRouter.get("/", getWaterlooIonLine);
 waterlooIonStageTwoRouter.get("/", getWaterlooIonLineStageTwo);
 
 export {
-    goStationsRouter,
+    stationsRouter,
     bikeRoutesRouter,
     viaRailRouter,
     ttcLineOneRouter,

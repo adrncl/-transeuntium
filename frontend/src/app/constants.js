@@ -34,7 +34,7 @@ export const goLineRHLineColour = "black";
 export const goLineStouffvilleLineColour = "black";
 export const goLineUnionPearsonLineColour = "black";
 
-export const goStationsColours = "black";
+export const stationsColours = "black";
 export const amtrakStationColours = "purple";
 export const viaRailStationColours = "rgb(156,0,0)";
 export const TTCColours = "green";

@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import {
-    goStationsRouter,
+    stationsRouter,
     bikeRoutesRouter,
     viaRailRouter,
     ttcLineOneRouter,
@@ -32,7 +32,7 @@ app.get("/", (req, res) => {
     res.send("Hello world");
 });
 
-app.use("/gostations", goStationsRouter);
+app.use("/stations", stationsRouter);
 app.use("/bikeroutes", bikeRoutesRouter);
 app.use("/viarail", viaRailRouter);
 

@@ -2,13 +2,13 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { endpoint, HTTP_STATUS } from "../../app/constants";
 
-export const fetchSpecificGoStation = createAsyncThunk(
-    "markerForm/fetchSpecificGoStation",
+export const fetchSpecificStation = createAsyncThunk(
+    "stationForm/fetchSpecificStation",
     async (updatedInfo, { rejectWithValue }) => {
         try {
             const { id } = updatedInfo;
             const { data, status } = await axios.get(
-                `${endpoint}/gostations/${id}`
+                `${endpoint}/stations/${id}`
             );
             return data;
         } catch (error) {
@@ -18,13 +18,13 @@ export const fetchSpecificGoStation = createAsyncThunk(
     }
 );
 
-export const updateGoStationInfo = createAsyncThunk(
-    "markerForm/updateGoStationInfo",
+export const updateStationInfo = createAsyncThunk(
+    "stationForm/updateStationInfo",
     async (updatedInfo, { rejectWithValue }) => {
         try {
             const { id } = updatedInfo;
             const response = await axios.put(
-                `${endpoint}/gostations/${id}`,
+                `${endpoint}/stations/${id}`,
                 updatedInfo
             );
             return response.data;
@@ -35,13 +35,13 @@ export const updateGoStationInfo = createAsyncThunk(
     }
 );
 
-export const deleteGoStationNote = createAsyncThunk(
-    "markerForm/deleteGoStationNote",
+export const deleteStationNote = createAsyncThunk(
+    "stationForm/deleteStationNote",
     async (updatedInfo, { rejectWithValue }) => {
         try {
             const { id } = updatedInfo;
             const response = await axios.delete(
-                `${endpoint}/gostations/${id}`,
+                `${endpoint}/stations/${id}`,
                 updatedInfo
             );
             return response.data;
@@ -66,8 +66,8 @@ const initialState = {
     notes: [],
 };
 
-const markerFormSlice = createSlice({
-    name: "markerForm",
+const stationFormSlice = createSlice({
+    name: "stationForm",
     initialState,
     reducers: {
         updateNote(state, action) {
@@ -113,10 +113,10 @@ const markerFormSlice = createSlice({
         reset: () => initialState,
     },
     extraReducers: {
-        [fetchSpecificGoStation.pending]: (state, action) => {
+        [fetchSpecificStation.pending]: (state, action) => {
             state.fetchingStatus = HTTP_STATUS.PENDING;
         },
-        [fetchSpecificGoStation.fulfilled]: (state, { payload }) => {
+        [fetchSpecificStation.fulfilled]: (state, { payload }) => {
             state.markerData = payload;
             state.id = payload._id;
             state.dislikeCount = payload.dislikeCount;
@@ -151,30 +151,30 @@ const markerFormSlice = createSlice({
                 state.fetchingStatus
             );
         },
-        [fetchSpecificGoStation.rejected]: (state, action) => {
+        [fetchSpecificStation.rejected]: (state, action) => {
             state.fetchingStatus = HTTP_STATUS.REJECTED;
         },
-        [updateGoStationInfo.pending]: (state, action) => {
+        [updateStationInfo.pending]: (state, action) => {
             state.updatingStatus = HTTP_STATUS.PENDING;
         },
-        [updateGoStationInfo.fulfilled]: (state, action) => {
+        [updateStationInfo.fulfilled]: (state, action) => {
             state.updatingStatus = HTTP_STATUS.FULFILLED;
         },
-        [updateGoStationInfo.rejected]: (state, action) => {
+        [updateStationInfo.rejected]: (state, action) => {
             console.log(state);
             state.updatingStatus = HTTP_STATUS.REJECTED;
         },
     },
 });
 
-export const getSpecificGoStation = (state) => state.markerForm.markerData;
-export const getSpecificGoStationStatus = (state) =>
-    state.markerForm.fetchingStatus;
-export const getSpecificGoStationNotes = (state) => state.markerForm.notes;
+export const getSpecificStation = (state) => state.stationForm.markerData;
+export const getSpecificStationStatus = (state) =>
+    state.stationForm.fetchingStatus;
+export const getSpecificStationNotes = (state) => state.stationForm.notes;
 
-export const updateSpecificGoStation = (state) => state.markerForm.markerData;
-export const updateSpecificGoStationStatus = (state) =>
-    state.markerForm.updatingStatus;
+export const updateSpecificStation = (state) => state.stationForm.markerData;
+export const updateSpecificStationStatus = (state) =>
+    state.stationForm.updatingStatus;
 
 export const {
     updateNote,
@@ -185,6 +185,6 @@ export const {
     updateServices,
     updateWifiStrength,
     reset,
-} = markerFormSlice.actions;
+} = stationFormSlice.actions;
 
-export default markerFormSlice.reducer;
+export default stationFormSlice.reducer;

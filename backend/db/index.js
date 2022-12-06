@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import "dotenv/config";
-import MongoClient from "mongodb";
+// import { stationModel } from "../models/stations.model.js";
 
 const { DATABASE_URL, DATABASE_USER, DATABASE_PASSWORD, DATABASE_NAME } =
     process.env;
@@ -20,7 +20,7 @@ mongoose.connect(
 //     let dbt = mongoose.connection.db;
 
 //     // Rename the `test` collection to `foobar`
-//     return dbt.collection("go-station-points").rename("station-points");
+//     // return dbt.collection("go-station-points").rename("station-points");
 
 //     // const collection = dbt.collection("go-station-points");
 
@@ -33,12 +33,27 @@ mongoose.connect(
 //     // });
 
 //     // console.log(distinctValues);
+
+//     stationModel.find().distinct("serviceType", function (error, ids) {
+//         // console.log(ids);
+//         let arr = [];
+//         ids.forEach((distinctVal) => {
+//             let fullsplitstring = distinctVal.split(", ");
+
+//             fullsplitstring.forEach((indiv) => {
+//                 if (!arr.includes(indiv)) arr.push(indiv);
+//             });
+//         });
+
+//         console.log(arr.sort((a, b) => a.localeCompare(b)));
+//         // ids is an array of all ObjectIds
+//     });
 // })
 // .then(() => {
-//     console.log("rename successful");
+//     console.log("successful");
 // })
 // .catch((e) => {
-//     console.log("rename failed:", e.message);
+//     console.log("failed:", e.message);
 // });
 
 const db = mongoose.connection;

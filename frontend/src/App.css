@@ -347,6 +347,45 @@ h3 {
     margin: 0;
 }
 
+li,
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+}
+
+.search-bar-container {
+    position: absolute;
+    left: calc(50% - 125px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 10001;
+}
+.search-bar-input {
+    background-color: white;
+    opacity: 95%;
+    width: 250px;
+    z-index: 10001;
+}
+
+.search-results-item {
+    background-color: white;
+    opacity: 95%;
+    padding: 10px;
+    border-bottom: 1px solid lightgrey;
+}
+.search-results-item:hover {
+    background-color: lightgrey;
+    cursor: pointer;
+}
+
+.results {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
 .modal {
     background-color: grey !important;
     position: absolute;

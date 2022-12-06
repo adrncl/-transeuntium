@@ -14,13 +14,6 @@ import IconLabelButtons from "../../components/Button";
 import OutlinedCard from "../../components/NoteCard";
 import { useDispatch, useSelector } from "react-redux";
 import {
-    fetchGoStations,
-    getAllGoStations,
-    getAllGoStationsStatus,
-    updateMarker,
-    selectNotes,
-} from "../markers/markersSlice";
-import {
     updateNote,
     updateDislikeCount,
     updateLikeCount,
@@ -28,16 +21,14 @@ import {
     updateSanitaryRating,
     updateServices,
     updateWifiStrength,
-    updateGoStationInfo,
-    fetchSpecificGoStation,
-    getSpecificGoStation,
-    getSpecificGoStationStatus,
-    getSpecificGoStationNotes,
-    updateSpecificGoStation,
-    updateSpecificGoStationStatus,
-} from "../markerForm/markerFormSlice";
-
-import Modal from "../../components/Modal";
+    updateStationInfo,
+    fetchSpecificStation,
+    getSpecificStation,
+    getSpecificStationStatus,
+    getSpecificStationNotes,
+    updateSpecificStation,
+    updateSpecificStationStatus,
+} from "./stationFormSlice";
 
 const Form = ({ station }) => {
     const [currentStation, setCurrentStation] = useState(station);
@@ -52,19 +43,14 @@ const Form = ({ station }) => {
     const [stationDisliked, setStationDisliked] = useState(false);
 
     const dispatch = useDispatch();
-    const getSpecificStation = useSelector(getSpecificGoStation);
-    const getSpecificStationStatus = useSelector(getSpecificGoStationStatus);
+    const specificStation = useSelector(getSpecificStation);
+    const specificStationStatus = useSelector(getSpecificStationStatus);
 
-    const updateSpecificStation = useSelector(updateSpecificGoStation);
-    const updateSpecificStationStatus = useSelector(
-        updateSpecificGoStationStatus
-    );
-
-    console.log("Updating Status...", updateSpecificStationStatus);
+    // console.log("Updating Status...", updateSpecificStationStatus);
 
     // run only when dispatch changes - dependency
     useEffect(() => {
-        dispatch(fetchSpecificGoStation({ id: currentId }));
+        dispatch(fetchSpecificStation({ id: currentId }));
     }, [dispatch]);
 
     useEffect(() => {
@@ -90,7 +76,7 @@ const Form = ({ station }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(
-            updateGoStationInfo({
+            updateStationInfo({
                 id: currentId,
                 note: noteText,
                 sanitaryRating: sanitaryRating,
@@ -100,7 +86,7 @@ const Form = ({ station }) => {
                 stationDisliked: stationDisliked,
             })
         )
-            .then(() => dispatch(fetchSpecificGoStation({ id: currentId })))
+            .then(() => dispatch(fetchSpecificStation({ id: currentId })))
             .catch(() => console.log("error"));
     };
 
@@ -172,7 +158,7 @@ const Form = ({ station }) => {
                 </Button>
             </div>
 
-            {getSpecificStationStatus !== HTTP_STATUS.FULFILLED
+            {specificStationStatus !== HTTP_STATUS.FULFILLED
                 ? station.notes.map((note, i) => (
                       <OutlinedCard
                           key={note._id}
@@ -181,7 +167,7 @@ const Form = ({ station }) => {
                           noteId={note._id}
                       />
                   ))
-                : getSpecificStation.notes.map((note, i) => (
+                : specificStation.notes.map((note, i) => (
                       <OutlinedCard
                           key={note._id}
                           note={note}

@@ -12,10 +12,9 @@ import CloseIcon from "@mui/icons-material/Close";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
-    updateGoStationInfo,
-    deleteGoStationNote,
-    fetchSpecificGoStation,
-} from "../features/markerForm/markerFormSlice";
+    updateStationInfo,
+    fetchSpecificStation,
+} from "../features/stationForm/stationFormSlice";
 
 const OutlinedCard = ({ note, id, noteId }) => {
     const dispatch = useDispatch();
@@ -23,13 +22,13 @@ const OutlinedCard = ({ note, id, noteId }) => {
         e.preventDefault();
 
         dispatch(
-            updateGoStationInfo({
+            updateStationInfo({
                 noteId: currentNoteId,
                 id: currentId,
                 type: "DELETE",
             })
         )
-            .then(() => dispatch(fetchSpecificGoStation({ id: currentId })))
+            .then(() => dispatch(fetchSpecificStation({ id: currentId })))
             .catch(() => console.log("error"));
     };
     const [currentId, setCurrentId] = useState(id);

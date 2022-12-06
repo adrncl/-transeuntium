@@ -1,26 +1,26 @@
 // // getting access to our model
 import mongoose from "mongoose";
-import { stationModel } from "../models/goStations.model.js";
+import { stationModel } from "../models/stations.model.js";
 
-export const getGoStations = async (req, res) => {
+export const getStations = async (req, res) => {
     try {
-        const goStations = await stationModel.find();
+        const stations = await stationModel.find();
         // status 200 means everythings okay
-        res.status(200).json(goStations);
+        res.status(200).json(stations);
     } catch (error) {
-        console.error("Error in the getGoStations controller: ", error.message);
+        console.error("Error in the getStations controller: ", error.message);
         res.status(404).json({ message: error.message });
     }
 };
 
-export const getSpecificGoStation = async (req, res) => {
+export const getSpecificStation = async (req, res) => {
     try {
         const { id } = req.params;
-        const goStationNotes = await stationModel.findById(id);
-        res.status(200).json(goStationNotes);
+        const stationNotes = await stationModel.findById(id);
+        res.status(200).json(stationNotes);
     } catch (error) {
         console.error(
-            "Error in the getSpecificGoStation controller: ",
+            "Error in the getSpecificStation controller: ",
             error.message
         );
         res.status(404).json({ message: error.message });
@@ -28,7 +28,7 @@ export const getSpecificGoStation = async (req, res) => {
 };
 
 // update post controller
-export const updateGoStationInfo = async (req, res) => {
+export const updateStationInfo = async (req, res) => {
     // extracting id from req.params
     const { id } = req.params;
     const updatedStationInfo = req.body;
@@ -39,22 +39,22 @@ export const updateGoStationInfo = async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(id))
         return res.status(404).send("No post with that id");
 
-    stationModel.findById(id, function (err, goStation) {
-        if (goStation.length === 0) return res.json();
-        const existingNotes = goStation.notes;
-        const existingSanitaryRatings = goStation.sanitaryRating;
-        const existingSafetyRatings = goStation.safetyRating;
-        const existingServicesIncluded = goStation.services;
+    stationModel.findById(id, function (err, station) {
+        if (station.length === 0) return res.json();
+        const existingNotes = station.notes;
+        const existingSanitaryRatings = station.sanitaryRating;
+        const existingSafetyRatings = station.safetyRating;
+        const existingServicesIncluded = station.services;
         if (updatedStationInfo.type !== "DELETE") {
             const NewNote = {
                 _id: mongoose.Types.ObjectId(),
                 note: updatedStationInfo.note,
             };
 
-            goStation.likeCount =
-                goStation.likeCount + (updatedStationInfo.stationLiked ? 1 : 0);
-            goStation.dislikeCount =
-                goStation.dislikeCount +
+            station.likeCount =
+                station.likeCount + (updatedStationInfo.stationLiked ? 1 : 0);
+            station.dislikeCount =
+                station.dislikeCount +
                 (updatedStationInfo.stationDisliked ? 1 : 0);
 
             updatedStationInfo.servicesIncluded.forEach((element) => {
@@ -78,7 +78,7 @@ export const updateGoStationInfo = async (req, res) => {
             });
         }
 
-        goStation.save(function (err) {
+        station.save(function (err) {
             if (err) {
                 console.log("there was an err", err);
             }
@@ -102,7 +102,7 @@ export const likePost = async (req, res) => {
     res.json(updatedPost);
 };
 
-// export const deleteGoStationNote = async (req, res) => {
+// export const deleteStationNote = async (req, res) => {
 //     // extracting id from req.params
 //     const { id, noteId } = req.params;
 //     const updatedStationInfo = req.body;
@@ -114,13 +114,13 @@ export const likePost = async (req, res) => {
 //     if (!mongoose.Types.ObjectId.isValid(id))
 //         return res.status(404).send("No post with that id");
 
-//     // stationModel.findById(id, function (err, goStation) {
-//     //     if (goStation.length === 0) return res.json();
+//     // stationModel.findById(id, function (err, station) {
+//     //     if (station.length === 0) return res.json();
 
-//     //     const existingNotes = goStation.notes;
+//     //     const existingNotes = station.notes;
 
 //     //     console.log("existing notes", existingNotes);
-//     //     // goStation.save(function (err) {
+//     //     // station.save(function (err) {
 //     //     //     if (err) {
 //     //     //         console.log("there was an err", err);
 //     //     //     }

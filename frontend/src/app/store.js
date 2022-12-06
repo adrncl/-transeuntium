@@ -15,8 +15,8 @@ import stouffvilleLineReducer from "../features/lines/goTransit/stouffvilleLine/
 import unionPearsonLineReducer from "../features/lines/goTransit/unionPearsonLine/unionPearsonLineSlice";
 import waterlooIonCurrentReducer from "../features/lines/waterlooIon/waterlooIonCurrent/waterlooIonCurrentSlice";
 import waterlooIonStage2Reducer from "../features/lines/waterlooIon/waterlooIonStage2/waterlooIonStage2Slice";
-import markerReducer from "../features/markers/markersSlice";
-import markerFormReducer from "../features/markerForm/markerFormSlice";
+import stationsReducer from "../features/markers/stationsSlice";
+import stationFormReducer from "../features/stationForm/stationFormSlice";
 
 export default configureStore({
     reducer: {
@@ -36,7 +36,7 @@ export default configureStore({
         waterlooIonCurrent: waterlooIonCurrentReducer,
         waterlooIonStage2: waterlooIonStage2Reducer,
         viaRailLines: viaRailReducer,
-        markers: markerReducer,
-        markerForm: markerFormReducer,
+        stations: stationsReducer,
+        stationForm: stationFormReducer,
     },
 });

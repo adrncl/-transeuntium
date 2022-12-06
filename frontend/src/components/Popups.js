@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Popup } from "react-leaflet"
-import '../App.css';
-import Form from "../features/markerForm/MarkerForm"
+import { Popup } from "react-leaflet";
+import "../App.css";
+import Form from "../features/stationForm/StationForm";
 
 const LoadPopups = ({ station }) => {
     return (
@@ -13,6 +13,6 @@ const LoadPopups = ({ station }) => {
             <Form station={station} />
         </Popup>
     );
-}
+};
 
 export default LoadPopups;
