@@ -1,5 +1,5 @@
 import React from "react";
-import { Marker, LayerGroup } from "react-leaflet";
+import { Marker, LayerGroup, useMap } from "react-leaflet";
 import LoadPopups from "../../components/Popups";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllStations, getAllStationsStatus } from "./stationsSlice";
@@ -10,6 +10,7 @@ const LoadGoStations = ({ type }) => {
     const dispatch = useDispatch();
     const stations = useSelector(getAllStations);
     const stationsStatus = useSelector(getAllStationsStatus);
+    const map = useMap();
 
     // Need to update colours to different icons in constant file.
     // const getMarkerColour = (type) => {
@@ -39,6 +40,11 @@ const LoadGoStations = ({ type }) => {
                               color={"red"}
                               eventHandlers={{
                                   click: () => {
+                                      //   map.setZoom(14);
+                                      //   map.panTo([
+                                      //       station.coordinates[1],
+                                      //       station.coordinates[0],
+                                      //   ]);
                                       dispatch(
                                           fetchSpecificStation({
                                               id: station._id,

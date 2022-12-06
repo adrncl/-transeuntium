@@ -6,7 +6,13 @@ export const fetchStations = createAsyncThunk(
     "stations/fetchStations",
     async () => {
         const { data, status } = await axios.get(`${endpoint}/stations`);
-        if (status === 200) return data;
+        // sort stations on data return
+        if (status === 200) {
+            data.sort((a, b) => {
+                return a.stationName.trim().localeCompare(b.stationName.trim());
+            });
+            return data;
+        }
         console.log("error");
     }
 );

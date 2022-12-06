@@ -11,7 +11,6 @@ import { useMap, useMapEvent } from "react-leaflet";
 const SearchBar = (props) => {
     const map = useMap();
     const stations = useSelector(getAllStations);
-
     const [searchResults, setSearchResults] = useState(stations);
     const [currentValToSearch, setCurrentValToSearch] = useState("");
     const [currentlySearching, setCurrentlySearching] = useState(false);
@@ -48,20 +47,20 @@ const SearchBar = (props) => {
     };
 
     const handleResultItemClick = (station) => {
-        console.log(station);
         const stationLong = station.coordinates[0];
         const stationLat = station.coordinates[1];
 
-        map.setZoom(15);
+        map.setZoom(14);
         map.panTo([stationLat, stationLong]);
+
         setCurrentValToSearch(station.stationName);
         setCurrentlySearching(false);
         enableZoomAndDrag();
     };
+
     const handleSearchBarFocus = (currentValToSearch) => {
         setCurrentlySearching(true);
         disableZoomAndDrag();
-        console.log(currentValToSearch);
         search(currentValToSearch);
     };
 
@@ -70,7 +69,7 @@ const SearchBar = (props) => {
             <TextField
                 sx={{ marginTop: 1 }}
                 className="search-bar-input"
-                label="Search For Stations"
+                label="Search stations..."
                 rows={1}
                 variant="outlined"
                 value={currentValToSearch}

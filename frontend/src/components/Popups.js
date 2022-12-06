@@ -5,7 +5,7 @@ import Form from "../features/stationForm/StationForm";
 
 const LoadPopups = ({ station }) => {
     return (
-        <Popup minWidth={300}>
+        <Popup maxHeight={350} minWidth={250}>
             <div className="title-container">
                 <h2>{station.stationName}</h2>
                 <h3>{station.lineName}</h3>
